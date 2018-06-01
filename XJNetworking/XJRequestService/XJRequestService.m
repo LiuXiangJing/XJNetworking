@@ -92,19 +92,24 @@ static NSTimeInterval fileTimeout = 60;
 - (NSString *)getRequestURLWithConfig:(XJRequestConfig *)config {
     XJRequestBasicConfig * basicConfig = [XJRequestBasicConfig sharedConfig];
     NSAssert(basicConfig.baseURL != nil, @"BaseURL should not be nil");
-    return [basicConfig.baseURL stringByAppendingString:config.requestURL];
+    if (config.requestURL){
+        return [basicConfig.baseURL stringByAppendingString:config.requestURL];
+    }
+    return basicConfig.baseURL;
 }
 #pragma mark 汇总网络请求
 - (XJRequest *)sendAllRequesWithConfig:(XJRequestConfig *)config appenddata:(void (^)(id<AFMultipartFormData>))appenddata progress:(void (^)(NSProgress *))progress complete:(XJRequestResultBlock)complete  {
     NSDictionary * paramDic = [self getAllParameterFromConfig:config];
     NSString * requestURL = [self getRequestURLWithConfig:config];
     
-    NSAssert(requestURL != nil, @"requestURL should not be nil");
+    XJRequestLog(@"请求的URL：%@\n请求的参数：%@",requestURL,paramDic);
 
    NSURLSessionDataTask * requestTask = [self requesturl:requestURL method:config.requestMethod parameters:paramDic constructingBodyWithBlock:appenddata progress:progress success:^(NSURLSessionDataTask *task, id responseObject) {
+        XJRequestLog(@"请求的URL：%@\n请求的成功：%@",requestURL,responseObject);
         XJRequestResult * resullt = [XJRequestResult requestResultWithConfig:config response:responseObject error:nil];
         complete(resullt);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        XJRequestLog(@"请求的URL：%@\n请求的失败：%@",requestURL,error);
         XJRequestResult * resullt = [XJRequestResult requestResultWithConfig:config response:nil error:error];
         complete(resullt);
     }];
@@ -124,7 +129,6 @@ static NSTimeInterval fileTimeout = 60;
             return [self.sessionManager GET:url parameters:parameters progress:uploadProgress success:success failure:failure];
             break;
         }
-            break;
         case XJRequestMethodPost:{
             if (block) {
                 return [self.sessionManager POST:url parameters:parameters constructingBodyWithBlock:block progress:uploadProgress success:success failure:failure];

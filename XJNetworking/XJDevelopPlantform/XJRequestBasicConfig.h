@@ -50,6 +50,10 @@
  当然，如果并不需要解析<XJRequestResultProtocol>也会把原数据传递出去的。
  */
 
+/**
+ 是否需要使用这种格式解析。默认是NO
+ */
+@property (nonatomic,assign)BOOL needAnalysis;
 /** 标记成功的字段名 默认是`code` */
 @property (nonatomic,copy)NSString * successKey;
 

@@ -7,16 +7,19 @@
 //
 
 #import "ViewController.h"
-
-@interface ViewController ()
-
+#import "TestDataSource.h"
+@interface ViewController () {
+    TestDataSource * _dataSource;
+}
+    
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    _dataSource = [[TestDataSource alloc]init];
+    [_dataSource getHomeData];
 }
 
 

@@ -13,7 +13,7 @@
 }
 @end
 @implementation XJRequestBasicConfig
-@synthesize debugLogEnabled = _debugLogEnabled;
+@synthesize debugLogEnabled = _debugLogEnabled,needAnalysis = _needAnalysis;
 #pragma mark - init
 + (instancetype)sharedConfig {
     static id sharedInstance = nil;
@@ -33,6 +33,7 @@
         _dataKey = @"data";
         _messageKey = @"message";
         _timeoutInterval = 10;
+        _needAnalysis = NO;
     }
     return self;
 }

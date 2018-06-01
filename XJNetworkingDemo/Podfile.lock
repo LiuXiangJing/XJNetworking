@@ -1,0 +1,38 @@
+PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - MJExtension (3.0.15)
+  - XJNetworking (1.0.0):
+    - AFNetworking (~> 3.2.1)
+    - MJExtension (~> 3.0.13)
+
+DEPENDENCIES:
+  - XJNetworking
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - MJExtension
+    - XJNetworking
+
+SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  MJExtension: 3f039575db1b135a20699ad298713b26acec1528
+  XJNetworking: e1743b28f63a7346ccd608f517d16e7c8d98714c
+
+PODFILE CHECKSUM: ff58c6dc5dc31f4a7f8e34ab779be64712da98f9
+
+COCOAPODS: 1.5.3

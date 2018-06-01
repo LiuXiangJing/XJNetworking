@@ -11,12 +11,13 @@
 @interface AppDelegate ()
 
 @end
-
+#import "AppRequestConfiger.h"
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [AppRequestConfiger configAllRequest];
     return YES;
 }
 
