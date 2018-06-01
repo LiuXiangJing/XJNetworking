@@ -28,11 +28,18 @@
     return result;
 }
 - (void)configWithConfig:(XJRequestConfig *)config response:(id)response error:(NSError *)error {
+    
     _responseObjc = response;
     _error = error;
+
     if (error) {
         _success = NO;
         _errorMsg = [NSString stringWithFormat:@"%@(%ld)",error.localizedDescription,(long)error.code];
+        return;
+    }
+    BOOL needAnalysis = [XJRequestBasicConfig sharedConfig].needAnalysis;
+    if (needAnalysis == NO) {
+        _success = YES;
         return;
     }
     NSString * successKey = [XJRequestBasicConfig sharedConfig].successKey;
@@ -44,17 +51,16 @@
     if (_responseObjc && [_responseObjc isKindOfClass:[NSDictionary class]]) {
         NSString * code = [NSString stringWithFormat:@"%@",_responseObjc[successKey]];
         _errorMsg = _responseObjc[messageKey];
-
+        //状态对就是成功，否则就是失败
         if ([code isEqualToString:successValue]) {
             _success = YES;
-            id dataObjc = _responseObjc[dataKey];
-            if (config.mappingModel) {
-                NSError * error = nil;
-                _modelInfo = [XJMapperWithMJ mapperToModel:config.mappingModel response:dataObjc key:config.mappingParseName error:&error];
-                _error = error;
-            }else{
-                _modelInfo = dataObjc;
-            }
+        }
+        //数据的解析，无论成功与否都可以解析
+        _modelInfo = _responseObjc[dataKey];
+        if (config.mappingModel && _modelInfo) {
+            NSError * error = nil;
+            _modelInfo = [XJMapperWithMJ mapperToModel:config.mappingModel response:_modelInfo key:config.mappingParseName error:&error];
+            _error = error;
         }
     }
 }

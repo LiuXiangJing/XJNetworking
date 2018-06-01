@@ -15,12 +15,12 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - MJExtension (3.0.15)
-  - XJNetworking (1.0.0):
+  - XJNetworking (1.0.1):
     - AFNetworking (~> 3.2.1)
     - MJExtension (~> 3.0.13)
 
 DEPENDENCIES:
-  - XJNetworking
+  - XJNetworking (~> 1.0.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -31,8 +31,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   MJExtension: 3f039575db1b135a20699ad298713b26acec1528
-  XJNetworking: e1743b28f63a7346ccd608f517d16e7c8d98714c
+  XJNetworking: 2cf35e9b4143974ce0eda5a451aef50a8ea7f444
 
-PODFILE CHECKSUM: ff58c6dc5dc31f4a7f8e34ab779be64712da98f9
+PODFILE CHECKSUM: e6cae4cbd3d5a7ceb3d258ce5fb352c5ec2ac4cf
 
 COCOAPODS: 1.5.3

@@ -3,6 +3,6 @@ platform :ios, '9.0'
 
 target 'XJNetworkingDemo' do
 
-pod 'XJNetworking'
+pod 'XJNetworking', '~> 1.0.1'
 
 end
