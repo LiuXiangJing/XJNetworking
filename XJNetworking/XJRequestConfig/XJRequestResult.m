@@ -7,12 +7,12 @@
 //
 
 #import "XJRequestResult.h"
-@interface XJRequestResult()
-{
+@interface XJRequestResult() {
+    
     id _responseObjc;
     NSError * _error;
     
-    BOOL _success;
+    BOOL _isSuccess;
     NSString * _errorMsg;
     id _modelInfo;
 }
@@ -21,6 +21,7 @@
 #import "XJRequestConfig.h"
 #import "XJMapperWithMJ.h"
 @implementation XJRequestResult
+@synthesize error = _error,responseObject = _responseObjc,isSuccess = _isSuccess,errorMsg = _errorMsg,modelInfo = _modelInfo,code = _code;
 #pragma mark - init
 + (instancetype)requestResultWithConfig:(XJRequestConfig *)config response:(id)response error:(NSError *)error {
     XJRequestResult * result = [[XJRequestResult alloc]init];
@@ -33,27 +34,28 @@
     _error = error;
 
     if (error) {
-        _success = NO;
+        _isSuccess = NO;
         _errorMsg = [NSString stringWithFormat:@"%@(%ld)",error.localizedDescription,(long)error.code];
         return;
     }
     BOOL needAnalysis = [XJRequestBasicConfig sharedConfig].needAnalysis;
     if (needAnalysis == NO) {
-        _success = YES;
+        _isSuccess = YES;
         return;
     }
-    NSString * successKey = [XJRequestBasicConfig sharedConfig].successKey;
-    NSString * successValue = [XJRequestBasicConfig sharedConfig].successValue;
+    NSString * successKey = [XJRequestBasicConfig sharedConfig].statusKey;
+    NSString * successValue = [XJRequestBasicConfig sharedConfig].statusKey;
     NSString * dataKey = [XJRequestBasicConfig sharedConfig].dataKey;
     NSString * messageKey = [XJRequestBasicConfig sharedConfig].messageKey;
-    _success = NO;
+    _isSuccess = NO;
     _errorMsg = @"响应数据为空";
     if (_responseObjc && [_responseObjc isKindOfClass:[NSDictionary class]]) {
-        NSString * code = [NSString stringWithFormat:@"%@",_responseObjc[successKey]];
+        _code = [NSString stringWithFormat:@"%@",_responseObjc[successKey]];
+        
         _errorMsg = _responseObjc[messageKey];
         //状态对就是成功，否则就是失败
-        if ([code isEqualToString:successValue]) {
-            _success = YES;
+        if ([_code isEqualToString:successValue]) {
+            _isSuccess = YES;
         }
         //数据的解析，无论成功与否都可以解析
         _modelInfo = _responseObjc[dataKey];
@@ -65,21 +67,4 @@
     }
 }
 
-#pragma mark - getter
-
-- (NSError *)error {
-    return _error;
-}
-- (id)responseObject {
-    return _responseObjc;
-}
-- (BOOL)isSuccess {
-    return _success;
-}
-- (NSString *)errorMsg {
-    return _errorMsg;
-}
-- (id)modelInfo {
-    return _modelInfo;
-}
 @end

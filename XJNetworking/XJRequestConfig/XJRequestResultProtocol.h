@@ -22,6 +22,9 @@
 
 /** 是否成功 */
 @property (nonatomic,readonly) BOOL isSuccess;
+
+/** code值 */
+@property (nonatomic,readonly) NSString * code;
 /** 信息描述 */
 @property (nonatomic,readonly) NSString * errorMsg;
 /** model映射之后的结果，一般是一个实例化的model或model数组 */

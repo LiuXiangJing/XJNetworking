@@ -55,13 +55,16 @@
  */
 @property (nonatomic,assign)BOOL needAnalysis;
 /** 标记成功的字段名 默认是`code` */
-@property (nonatomic,copy)NSString * successKey;
+@property (nonatomic,copy)NSString * statusKey;
+@property (nonatomic,copy)NSString * successKey __deprecated_msg("请使用statusKey");
 
 /** 成功的值，非此值一律表示失败 默认是 `0` */
-@property (nonatomic,copy)NSString * successValue;
+@property (nonatomic,copy) NSString * statusValue;
+@property (nonatomic,copy) NSString * successValue __deprecated_msg("请使用statusValue");
 
 /** 表示data的字段名，默认是`data` */
 @property (nonatomic,copy)NSString * dataKey;
 /** 表示错误或成功信息的字段名，默认是`message` */
 @property (nonatomic,copy)NSString * messageKey;
 @end
+

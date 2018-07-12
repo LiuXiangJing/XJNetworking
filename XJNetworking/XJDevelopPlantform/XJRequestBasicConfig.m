@@ -28,6 +28,8 @@
     if (self) {
         _baseUrlDic = [NSMutableDictionary dictionaryWithCapacity:4];
         _debugLogEnabled = NO;
+        _statusKey = @"code";
+        _statusValue = @"0";
         _successKey = @"code";
         _successValue = @"0";
         _dataKey = @"data";
