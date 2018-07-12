@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "XJNetworking"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "XJNetworking is an iOS request util based on AFNetworking and MJExtension"
 
   s.homepage     = "https://github.com/LiuXiangJing/XJNetworking.git"
